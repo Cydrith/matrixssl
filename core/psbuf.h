@@ -186,11 +186,11 @@ static __inline int32_t psDynBufDetachBuf(psDynBuf_t *db, psBuf_t *target)
 	size_t sz;
 	void *buf;
 
-	target->start = target->buf = buf = psDynBufDetach(db, &sz);
+	target->start = target->buf = (unsigned char*)(buf = psDynBufDetach(db, &sz));
 	if (!buf) {
 		/* Exception path: memory allocation failure. */
 		target->size = 0;
-		target->end = buf;
+		target->end = (unsigned char*)buf;
 		return PS_MEM_FAIL;
 	}
 
